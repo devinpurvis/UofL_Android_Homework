@@ -17,6 +17,22 @@ public class Crime {
 		mDate = new Date();
 	}
 	
+	public Date getDate() {
+		return mDate;
+	}
+
+	public void setDate(Date date) {
+		mDate = date;
+	}
+
+	public boolean isSolved() {
+		return mSolved;
+	}
+
+	public void setSolved(boolean solved) {
+		mSolved = solved;
+	}
+
 	public String getTitle() {
 		return mTitle;
 	}
