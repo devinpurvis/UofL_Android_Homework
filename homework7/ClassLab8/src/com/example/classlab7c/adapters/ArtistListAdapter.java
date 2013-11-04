@@ -34,41 +34,13 @@ public class ArtistListAdapter extends ArrayAdapter<Artist>{
 		Artist artist = mEntries.get(position);
 		
 		TextView textViewDescription = (TextView)view.findViewById(R.id.textViewArtistName);
-		textViewDescription.setText("Artist: " + artist.getArtistName());
+		textViewDescription.setText(artist.getArtistName());
 		
-		
+		TextView textViewSongs = (TextView)view.findViewById(R.id.textViewArtistSongs);
+		textViewSongs.setText("Songs: " + artist.getSongs());
 		
 		return view;
 	}	
 }
 
-
-
-
-//public class ArtistListAdapter extends ArrayAdapter<MenuItem> {
-//	private List<MenuItem> mEntries;
-//	private Context mContext;
-//	
-//	public ArtistListAdapter(Context context,int textViewResourceId, List<MenuItem> entries) {
-//		super(context, textViewResourceId, entries);
-//	    mContext=context;
-//	    mEntries=entries; 
-//	}
-//	
-//	@Override
-//	public View getView(int position, View view, ViewGroup parent) {
-//		if(view==null){
-//			 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		     view = inflater.inflate(R.layout.listview_for_each_menuitem, parent, false);
-//		}
-//		MenuItem menuItem = mEntries.get(position);
-//		
-//		TextView textViewTitle = (TextView)view.findViewById(R.id.textViewTitle);
-//		textViewTitle.setText(menuItem.getMenuTitle());
-//		TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
-//		textViewDescription.setText(menuItem.getMenuDescription());
-//		
-//		return view;
-//	}
-//}
 
