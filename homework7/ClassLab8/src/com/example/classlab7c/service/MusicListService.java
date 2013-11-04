@@ -91,4 +91,9 @@ public class MusicListService {
 	public List<Event> getAllEvents(){
 		return events;
 	}
+	
+	public List<Artist> getAllArtists() {
+		return artists;
+	}
+	
 }
