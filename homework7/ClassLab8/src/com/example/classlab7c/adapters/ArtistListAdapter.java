@@ -15,8 +15,7 @@ import com.example.classlab7c.model.Artist;
 import com.example.classlab7c.model.MenuItem;
 import com.example.classlab7c.model.Song;
 
-public class ArtistListAdapter extends ArrayAdapter<Artist>{
-	private SimpleDateFormat df = new SimpleDateFormat("yyyy/mm/dd"); 
+public class ArtistListAdapter extends ArrayAdapter<Artist>{ 
 	private Context mContext;
 	private List<Artist> mEntries;
 	

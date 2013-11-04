@@ -1,5 +1,6 @@
 package com.example.classlab7c.adapters;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.content.Context;
@@ -10,32 +11,42 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.classlab7c.R;
-import com.example.classlab7c.model.MenuItem;
+import com.example.classlab7c.model.Event;
 
-public class EventListAdapter extends ArrayAdapter<MenuItem>{
-	private List<MenuItem> mEntries;
+
+public class EventListAdapter extends ArrayAdapter<Event>{
+	private SimpleDateFormat df = new SimpleDateFormat("yyyy/mm/dd"); 
 	private Context mContext;
+	private List<Event> mEntries;
 	
-	public EventListAdapter(Context context,int textViewResourceId, List<MenuItem> entries) { 
+	public EventListAdapter(Context context,int textViewResourceId, List<Event> entries) { 
 		super(context, textViewResourceId, entries);
 	    mContext=context;
-	    mEntries=entries;      
-    }
+	    mEntries=entries; 
+	}
 	
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 		if(view==null){
 			 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		     view = inflater.inflate(R.layout.listview_for_each_menuitem, parent, false);
+		     view = inflater.inflate(R.layout.listview_for_each_event, parent, false);
 		}
-		MenuItem menuItem = mEntries.get(position);
+		Event event = mEntries.get(position);
 		
-		TextView textViewTitle = (TextView)view.findViewById(R.id.textViewTitle);
-		textViewTitle.setText(menuItem.getMenuTitle());
-		TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
-		textViewDescription.setText(menuItem.getMenuDescription());
+		TextView textViewName = (TextView)view.findViewById(R.id.textViewEventName);
+		textViewName.setText(event.getEventName());
+		
+		TextView textViewDate = (TextView)view.findViewById(R.id.textViewDate);
+		textViewDate.setText("Date: " + df.format(event.getDate()));
+		
+		TextView textViewLocation = (TextView)view.findViewById(R.id.textViewLocation);
+		textViewLocation.setText(event.getLocation());
 		
 		return view;
+		
+		
+		
 	}
-
+		
+		
 }
