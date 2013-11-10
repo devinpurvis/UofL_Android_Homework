@@ -29,6 +29,7 @@ public class HelloMoonFragment extends Fragment {
 				mPlayer.stop();
 			}
 		});
+		//end of chapter 13
 		
 		return v;
 	}
