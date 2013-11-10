@@ -15,10 +15,10 @@
         android:paddingTop="25dp"/>
     
     <LinearLayout
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:paddingLeft="25dp"
-	    android:orientation="horizontal" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp" >
     
         <ImageView
         	android:layout_width="wrap_content"
@@ -64,5 +64,31 @@
 		        android:paddingBottom="10dp"/>
 		</LinearLayout>
 	</LinearLayout>
+	
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+        <ImageButton 
+        	android:id="@+id/btnBuyTickets"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@android:drawable/btn_star"
+            android:contentDescription="@string/buy_tickets"/>
+         <ImageButton 
+            android:id="@+id/btnFacebookPost"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@android:drawable/btn_star"
+            android:contentDescription="@string/facebook"/>
+         <ImageButton 
+            android:id="@+id/btnTweet"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@android:drawable/btn_star"
+            android:contentDescription="@string/tweet"/>
+         
+     </LinearLayout>
 
 </LinearLayout>

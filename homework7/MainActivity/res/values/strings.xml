@@ -8,5 +8,8 @@
     <string name="layout2">Layout 2</string>
     <string name="layout3">Layout 3</string>
     <string name="layout4">Layout 4</string>
+    <string name="buy_tickets">Buy Tickets!</string>
+    <string name="facebook">Post To Facebook!</string>
+    <string name="tweet">Tweet!</string>
 
 </resources>
