@@ -17,6 +17,7 @@ public class HelloMoonFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
 	}
+	//end of chapt14
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup Parent, Bundle savedInstanceState) {
