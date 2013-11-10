@@ -36,8 +36,13 @@ public class ArtistListAdapter extends ArrayAdapter<Artist>{
 		TextView textViewDescription = (TextView)view.findViewById(R.id.textViewArtistName);
 		textViewDescription.setText(artist.getArtistName());
 		
+		String tmpSongs = "";
+		for (Song song:artist.getSongs()) {
+			tmpSongs += song.getSongTitle() + " [" + song.getAlbumTitle() + "]\n";
+		}
+		
 		TextView textViewSongs = (TextView)view.findViewById(R.id.textViewArtistSongs);
-		textViewSongs.setText("Songs: " + artist.getSongs());
+		textViewSongs.setText(tmpSongs);
 		
 		return view;
 	}	
