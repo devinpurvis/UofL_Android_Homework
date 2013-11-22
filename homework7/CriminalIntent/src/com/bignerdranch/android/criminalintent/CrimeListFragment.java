@@ -1,12 +1,14 @@
 package com.bignerdranch.android.criminalintent;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +24,7 @@ public class CrimeListFragment extends ListFragment {
 	
 	private static final String TAG = "CrimeListFragment";
 	
-	private ArrayList<Crime> mCrimes;
+	private List<Crime> mCrimes;
 	private boolean mSubtitleVisible;
 	
 	@Override
@@ -49,6 +51,9 @@ public class CrimeListFragment extends ListFragment {
                             getActivity().getActionBar().setSubtitle(R.string.subtitle);
                     }
             }
+            
+            ListView listView = (ListView)v.findViewById(android.R.id.list);
+            registerForContextMenu(listView);
             return v;
     }
 	
@@ -110,8 +115,13 @@ public class CrimeListFragment extends ListFragment {
             }
     }
 	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
+	}
+	
 	private class CrimeAdapter extends ArrayAdapter<Crime> {
-		public CrimeAdapter(ArrayList<Crime> crimes) {
+		public CrimeAdapter(List<Crime> crimes) {
 			super(getActivity(), 0, crimes);
 		}
 		
