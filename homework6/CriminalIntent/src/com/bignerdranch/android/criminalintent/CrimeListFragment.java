@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -21,6 +23,7 @@ public class CrimeListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 		getActivity().setTitle(R.string.crimes_title);
 		mCrimes = CrimeLab.get(getActivity()).getCrimes();
 		
@@ -42,6 +45,17 @@ public class CrimeListFragment extends ListFragment {
 	public void onResume() {
 		super.onResume();
 		((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.fragment_crime_list, menu);
 	}
 	
 	private class CrimeAdapter extends ArrayAdapter<Crime> {
