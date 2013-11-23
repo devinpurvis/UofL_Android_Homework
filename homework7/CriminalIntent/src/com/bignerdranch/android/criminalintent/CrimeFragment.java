@@ -32,6 +32,7 @@ public class CrimeFragment extends Fragment {
 	private static final String TAG = "CrimeFragment";
 	public static final String EXTRA_CRIME_ID = 
 			"com.bignerdranch.android.criminalintent.crime_id";
+	public static final String DIALOG_IMAGE = "image";
 	
 	private static final String DIALOG_DATE = "date";
 	private static final int REQUEST_DATE = 0;
@@ -168,6 +169,21 @@ public class CrimeFragment extends Fragment {
         });
         
         mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Photo p = mCrime.getPhoto();
+                if (p == null) 
+                    return;
+
+                FragmentManager fm = getActivity()
+                    .getSupportFragmentManager();
+                String path = getActivity()
+                    .getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.createInstance(path)
+                    .show(fm, DIALOG_IMAGE);
+            }
+        });
+
         
         // if camera is not available, disable camera functionality
         PackageManager pm = getActivity().getPackageManager();
