@@ -25,6 +25,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class CrimeFragment extends Fragment {
 	private static final String TAG = "CrimeFragment";
@@ -42,6 +43,7 @@ public class CrimeFragment extends Fragment {
 	private CheckBox mSolvedCheckBox;
 	
 	private ImageButton mPhotoButton;
+	private ImageView mPhotoView;
 	
 	public static CrimeFragment newInstance(UUID crimeId) {
 		Bundle args = new Bundle();
@@ -163,6 +165,8 @@ public class CrimeFragment extends Fragment {
                 startActivityForResult(i, REQUEST_PHOTO);
             }
         });
+        
+        mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
         
         // if camera is not available, disable camera functionality
         PackageManager pm = getActivity().getPackageManager();
