@@ -24,9 +24,8 @@ import android.widget.Button;
 
 public class CrimeCameraFragment extends Fragment {
     private static final String TAG = "CrimeCameraFragment";
-    
-    public static final String EXTRA_PHOTO_FILENAME = 
-    		"com.bignerdranch.android.criminalintent.photo_filename";
+
+    public static final String EXTRA_PHOTO_FILENAME = "CrimeCameraFragment.filename";
 
     private Camera mCamera;
     private SurfaceView mSurfaceView;
@@ -62,7 +61,7 @@ public class CrimeCameraFragment extends Fragment {
             }
             
             if (success) {
-            	// set the photo filename on the result intent
+                // set the photo filename on the result intent
                 if (success) {
                     Intent i = new Intent();
                     i.putExtra(EXTRA_PHOTO_FILENAME, filename);
@@ -70,7 +69,6 @@ public class CrimeCameraFragment extends Fragment {
                 } else {
                     getActivity().setResult(Activity.RESULT_CANCELED);
                 }
-            
             }
             getActivity().finish();
         }
@@ -87,8 +85,8 @@ public class CrimeCameraFragment extends Fragment {
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (mCamera != null) {
-                	mCamera.takePicture(mShutterCallback, null, mJpegCallBack);
-                }
+            	    mCamera.takePicture(mShutterCallback, null, mJpegCallBack);
+            	}
             } 
         });
 
@@ -96,7 +94,6 @@ public class CrimeCameraFragment extends Fragment {
         SurfaceHolder holder = mSurfaceView.getHolder();
         // deprecated, but required for pre-3.0 devices
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        
         holder.addCallback(new SurfaceHolder.Callback() {
 
             public void surfaceCreated(SurfaceHolder holder) {
@@ -125,7 +122,7 @@ public class CrimeCameraFragment extends Fragment {
                 Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), w, h);
                 parameters.setPreviewSize(s.width, s.height);
                 s = getBestSupportedSize(parameters.getSupportedPictureSizes(), w, h);
-                parameters.setPreviewSize(s.width, s.height);
+                parameters.setPictureSize(s.width, s.height);
                 mCamera.setParameters(parameters);
                 try {
                     mCamera.startPreview();
@@ -136,11 +133,10 @@ public class CrimeCameraFragment extends Fragment {
                 }
             }
         });
-
         
         return v; 
     }
-    
+
     @TargetApi(9)
     @Override
     public void onResume() {
@@ -152,7 +148,7 @@ public class CrimeCameraFragment extends Fragment {
             mCamera = Camera.open();
         }
     }
-    
+
     @Override
     public void onPause() {
         super.onPause();
@@ -162,7 +158,7 @@ public class CrimeCameraFragment extends Fragment {
             mCamera = null;
         }
     }
-    
+
     /** a simple algorithm to get the largest size available. For a more 
      * robust version, see CameraPreview.java in the ApiDemos 
      * sample app from Android. */
