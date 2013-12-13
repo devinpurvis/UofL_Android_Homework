@@ -1,15 +1,16 @@
 package com.purvis.devin.walk;
 
-import android.os.Bundle;
+import java.util.UUID;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 
 public class WalkActivity extends SingleFragmentActivity {
 
 	@Override
 	protected Fragment createFragment() {
-		return new WalkFragment();
+		UUID walkID = (UUID)getIntent().getSerializableExtra(WalkFragment.EXTRA_WALK_ID);
+		
+		return WalkFragment.newInstance(walkID);
 	}
 
 //	@Override

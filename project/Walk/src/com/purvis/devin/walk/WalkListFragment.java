@@ -1,9 +1,9 @@
 package com.purvis.devin.walk;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -25,11 +25,23 @@ public class WalkListFragment extends ListFragment {
         WalkAdapter adapter = new WalkAdapter(mWalks);
         setListAdapter(adapter);
     }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	((WalkAdapter)getListAdapter()).notifyDataSetChanged();
+    }
        
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) { 
-        Walk w = ((WalkAdapter)getListAdapter()).getItem(position);
-        Log.d(TAG, w.getTitle() + " was clicked");
+        //Get the walk from the adapter
+    	Walk w = ((WalkAdapter)getListAdapter()).getItem(position);
+    	
+    	//Start WalkActivity
+    	Intent i = new Intent(getActivity(), WalkActivity.class);
+    	i.putExtra(WalkFragment.EXTRA_WALK_ID, w.getId());
+    	startActivity(i);
+
     }
     
     private class WalkAdapter extends ArrayAdapter<Walk> {
