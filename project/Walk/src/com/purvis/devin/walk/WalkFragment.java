@@ -1,9 +1,13 @@
 package com.purvis.devin.walk;
 
+import java.util.Date;
 import java.util.UUID;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +18,10 @@ import android.widget.EditText;
 
 public class WalkFragment extends Fragment {
 	public static final String EXTRA_WALK_ID = "walk.WALK_ID";
+	
+	private static final String DIALOG_DATE = "date";
+
+	private static final int REQUEST_DATE = 0;
 	
 	private Walk mWalk;
 	private EditText mTitleField;
@@ -37,6 +45,21 @@ public class WalkFragment extends Fragment {
 		mWalk = WalkSetup.get(getActivity()).getWalk(walkId);
 		
 	}
+	
+	public void updateDate() {
+		mDateButton.setText(mWalk.getDate().toString());
+	}
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) return;
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mWalk.setDate(date);
+            updateDate();
+        }
+    }
+	
 	//inflates fragment_walk.xml
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -60,8 +83,17 @@ public class WalkFragment extends Fragment {
 		});
 		
 		mDateButton = (Button)v.findViewById(R.id.walk_date);
-        mDateButton.setText(mWalk.getDate().toString());
-        mDateButton.setEnabled(false);
+        updateDate();
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {                	            	
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mWalk.getDate());
+                dialog.setTargetFragment(WalkFragment.this, REQUEST_DATE);
+                dialog.show(fm, DIALOG_DATE);              	
+            }
+        });
+
 		
 		return v;
 	}

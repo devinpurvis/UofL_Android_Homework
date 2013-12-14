@@ -8,5 +8,6 @@
     <string name="walk_title_label">Title</string>
     <string name="walk_details_label">Details</string>
     <string name="walks_title">Walks</string>
+    <string name="date_picker_title">Date of activity:</string>
 
 </resources>
