@@ -53,6 +53,10 @@ public class WalkSetup {
 		mWalks.add(w);
 	}
 	
+	public void deleteWalk(Walk w) {
+		mWalks.remove(w);
+	}
+	
 	public List<Walk> getWalks() {
 		return mWalks;
 	}
