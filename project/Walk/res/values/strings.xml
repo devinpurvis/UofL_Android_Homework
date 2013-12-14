@@ -9,5 +9,9 @@
     <string name="walk_details_label">Details</string>
     <string name="walks_title">Walks</string>
     <string name="date_picker_title">Date of activity:</string>
+    <string name="new_walk">New Activity</string>
+    <string name="subtitle">Keep on Exercising!</string>
+    <string name="delete_crime">Delete</string>
+    <string name="empty_list">To get started, add a new activity!</string>
 
 </resources>

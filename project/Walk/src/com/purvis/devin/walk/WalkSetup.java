@@ -5,24 +5,30 @@ import java.util.List;
 import java.util.UUID;
 
 import android.content.Context;
+import android.util.Log;
 
 public class WalkSetup {
-	
+	private static final String TAG = "WalkSetup";
+    private static final String FILENAME = "walks.json";
+
 	//Storing list of walks in singleton - only one instance of self can be created
 	
 	private List<Walk> mWalks;
+    private WalkJSON mSerializer;
 	
 	private static WalkSetup sWalkSetup;
 	private Context mAppContext;
 	
 	private WalkSetup(Context appContext) {
 		mAppContext = appContext;
-		mWalks = new ArrayList<Walk>();
-	    for (int i = 0; i < 100; i++) {
-	       Walk c = new Walk();
-	       c.setTitle("Crime #" + i);
-	       mWalks.add(c);
-	    }
+		mSerializer = new WalkJSON(mAppContext, FILENAME);
+		
+		try {
+			mWalks = mSerializer.loadWalks();
+        } catch (Exception e) {
+        	mWalks = new ArrayList<Walk>();
+            Log.e(TAG, "Error loading walks: ", e);
+        }
 	}
 	
 	public static WalkSetup get(Context c) {
@@ -30,6 +36,21 @@ public class WalkSetup {
         	sWalkSetup = new WalkSetup(c.getApplicationContext());
         }
         return sWalkSetup;
+	}
+	
+	public boolean saveWalks() {
+        try {
+            mSerializer.saveWalks(mWalks);
+            Log.d(TAG, "walks saved to file");
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "Error saving walks: " + e);
+            return false;
+        }
+    }
+	
+	public void addWalk(Walk w) {
+		mWalks.add(w);
 	}
 	
 	public List<Walk> getWalks() {

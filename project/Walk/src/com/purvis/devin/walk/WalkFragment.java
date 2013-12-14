@@ -3,14 +3,18 @@ package com.purvis.devin.walk;
 import java.util.Date;
 import java.util.UUID;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,12 +47,56 @@ public class WalkFragment extends Fragment {
 		UUID walkId = (UUID)getActivity().getIntent().getSerializableExtra(EXTRA_WALK_ID);
 		
 		mWalk = WalkSetup.get(getActivity()).getWalk(walkId);
+		setHasOptionsMenu(true);
 		
 	}
 	
 	public void updateDate() {
 		mDateButton.setText(mWalk.getDate().toString());
 	}
+	
+	//inflates fragment_walk.xml
+		@TargetApi(11)
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.fragment_walk, parent, false);
+			
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+	        }   
+			
+			//wire up EditText to respond to user input
+			mTitleField = (EditText)v.findViewById(R.id.walk_title);
+			mTitleField.setText(mWalk.getTitle());
+			mTitleField.addTextChangedListener(new TextWatcher() {
+				public void onTextChanged(CharSequence c, int start, int before, int count) {
+					mWalk.setTitle(c.toString());
+				}
+				
+				public void beforeTextChanged(CharSequence c, int start, int count, int after) {
+					//left blank
+				}
+				
+				public void afterTextChanged(Editable c) {
+					//left blank
+				}
+			});
+			
+			mDateButton = (Button)v.findViewById(R.id.walk_date);
+	        updateDate();
+	        mDateButton.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View v) {                	            	
+	                FragmentManager fm = getActivity()
+	                        .getSupportFragmentManager();
+	                DatePickerFragment dialog = DatePickerFragment.newInstance(mWalk.getDate());
+	                dialog.setTargetFragment(WalkFragment.this, REQUEST_DATE);
+	                dialog.show(fm, DIALOG_DATE);              	
+	            }
+	        });
+
+			
+			return v;
+		}
 	
 	@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -60,42 +108,23 @@ public class WalkFragment extends Fragment {
         }
     }
 	
-	//inflates fragment_walk.xml
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_walk, parent, false);
-		
-		//wire up EditText to respond to user input
-		mTitleField = (EditText)v.findViewById(R.id.walk_title);
-		mTitleField.setText(mWalk.getTitle());
-		mTitleField.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence c, int start, int before, int count) {
-				mWalk.setTitle(c.toString());
-			}
-			
-			public void beforeTextChanged(CharSequence c, int start, int count, int after) {
-				//left blank
-			}
-			
-			public void afterTextChanged(Editable c) {
-				//left blank
-			}
-		});
-		
-		mDateButton = (Button)v.findViewById(R.id.walk_date);
-        updateDate();
-        mDateButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {                	            	
-                FragmentManager fm = getActivity()
-                        .getSupportFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mWalk.getDate());
-                dialog.setTargetFragment(WalkFragment.this, REQUEST_DATE);
-                dialog.show(fm, DIALOG_DATE);              	
-            }
-        });
-
-		
-		return v;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(getActivity());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        } 
+    }
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		WalkSetup.get(getActivity()).saveWalks();
 	}
+	
+	
 
 }
