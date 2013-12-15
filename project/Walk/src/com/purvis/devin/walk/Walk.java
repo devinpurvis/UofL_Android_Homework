@@ -11,14 +11,15 @@ public class Walk {
 	private static final String JSON_ID = "id";
     private static final String JSON_TITLE = "title";
     private static final String JSON_DATE = "date";
-//    private static final String JSON_STEPS = "steps";
+    private static final String JSON_DETAILS = "details";
+    private static final String JSON_STEPS = "steps";
 	
 	private UUID mId;
 	private String mTitle;
 	private Date mDate;
-//	private int mSteps;
-	
-	
+	private String mDetails;
+	private String mSteps;
+
 	public Walk() {
 		//Generate unique identifier
 		mId = UUID.randomUUID();
@@ -28,16 +29,18 @@ public class Walk {
 	public Walk(JSONObject json) throws JSONException {
 		  mId = UUID.fromString(json.getString(JSON_ID));
 	      mTitle = json.getString(JSON_TITLE);
-//	      mSteps = json.getInt(JSON_STEPS);
+	      mSteps = json.getString(JSON_STEPS);
 	      mDate = new Date(json.getLong(JSON_DATE));
+	      mDetails = json.getString(JSON_DETAILS);
 	}
 	
 	public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(JSON_ID, mId.toString());
+        json.put(JSON_DETAILS, mDetails.toString());
         json.put(JSON_TITLE, mTitle);
         json.put(JSON_DATE, mDate.getTime());
-//      json.put(JSON_STEPS, mSteps);
+        json.put(JSON_STEPS, mSteps);
         return json;
 	}
 
@@ -66,6 +69,24 @@ public class Walk {
 	public void setDate(Date date) {
 		mDate = date;
 	}
+
+	public String getDetails() {
+		return mDetails;
+	}
+
+	public void setDetails(String details) {
+		mDetails = details;
+	}
+
+	public void setSteps(String steps) {
+		mSteps = steps;
+	}
+
+	public String getSteps() {
+		return mSteps;
+	}
+
+	
 	
 	
 }

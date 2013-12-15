@@ -4,8 +4,8 @@
     <string name="app_name">Walk</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_walk">WalkActivity</string>
-    <string name="walk_title_hint">Enter a title for the Walk.</string>
-    <string name="walk_title_label">Title</string>
+    <string name="walk_title_hint">Enter a location</string>
+    <string name="walk_title_label">Location</string>
     <string name="walk_details_label">Details</string>
     <string name="walks_title">Walks</string>
     <string name="date_picker_title">Date of activity:</string>
@@ -13,5 +13,10 @@
     <string name="subtitle">Keep on Exercising!</string>
     <string name="delete_crime">Delete</string>
     <string name="empty_list">To get started, add a new activity!</string>
+    <string name="steps">Steps</string>
+    <string name="walk_details_hint">Enter some details</string>
+    <string name="pedometer_label">Pedometer</string>
+    <string name="pedometer_hint">Use the Pedometer</string>
+    <string name="steps_taken">Steps Taken..</string>
 
 </resources>

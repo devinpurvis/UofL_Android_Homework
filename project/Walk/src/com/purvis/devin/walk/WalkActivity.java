@@ -13,11 +13,6 @@ public class WalkActivity extends SingleFragmentActivity {
 		return WalkFragment.newInstance(walkID);
 	}
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.walk, menu);
-//		return true;
-//	}
+
 
 }

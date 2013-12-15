@@ -25,6 +25,14 @@
       		<meta-data android:name="android.support.PARENT_ACTIVITY"
       		    android:value=".WalkListActivity"/>
         </activity>
+        <activity
+            android:name="com.purvis.devin.walk.Pedometer"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".WalkPedometerActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

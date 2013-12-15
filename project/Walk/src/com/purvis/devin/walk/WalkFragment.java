@@ -30,6 +30,10 @@ public class WalkFragment extends Fragment {
 	private Walk mWalk;
 	private EditText mTitleField;
 	private Button mDateButton;
+	private Button mPedometerButton;
+	private EditText mDetailsField;
+	private EditText mStepsTaken;
+	private Pedometer mSteps;
 	
 	public static WalkFragment newInstance(UUID walkId) {
         Bundle args = new Bundle();
@@ -48,6 +52,7 @@ public class WalkFragment extends Fragment {
 		
 		mWalk = WalkSetup.get(getActivity()).getWalk(walkId);
 		setHasOptionsMenu(true);
+		
 		
 	}
 	
@@ -82,6 +87,41 @@ public class WalkFragment extends Fragment {
 				}
 			});
 			
+			//wire up EditText to respond to user input
+			mDetailsField = (EditText)v.findViewById(R.id.walk_details);
+			mDetailsField.setText(mWalk.getDetails());
+			mDetailsField.addTextChangedListener(new TextWatcher() {
+				public void onTextChanged(CharSequence c, int start, int before, int count) {
+					mWalk.setDetails(c.toString());
+				}
+				
+				public void beforeTextChanged(CharSequence c, int start, int count, int after) {
+					//left blank
+				}
+				
+				public void afterTextChanged(Editable c) {
+					//left blank
+				}
+			});
+			
+			//wire up EditText to respond to user input
+			mStepsTaken = (EditText)v.findViewById(R.id.steps_taken);
+//    		mStepsTaken.setText(mWalk.getSteps());
+			mStepsTaken.setText(Integer.toString(Pedometer.mStepsPush));
+			mStepsTaken.addTextChangedListener(new TextWatcher() {
+				public void onTextChanged(CharSequence c, int start, int before, int count) {
+					mWalk.setSteps(c.toString());
+				}
+				
+				public void beforeTextChanged(CharSequence c, int start, int count, int after) {
+					//left blank
+				}
+				
+				public void afterTextChanged(Editable c) {
+					//left blank
+				}
+			});
+			
 			mDateButton = (Button)v.findViewById(R.id.walk_date);
 	        updateDate();
 	        mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +133,18 @@ public class WalkFragment extends Fragment {
 	                dialog.show(fm, DIALOG_DATE);              	
 	            }
 	        });
+	        
+	        mPedometerButton = (Button)v.findViewById(R.id.pedometer_button);
+//	        mPedometerButton.setText(mWalk.getTitle());
+	        mPedometerButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getActivity(), Pedometer.class);
+					startActivity(i);
+					
+					
+				}
+			});
 
 			
 			return v;
