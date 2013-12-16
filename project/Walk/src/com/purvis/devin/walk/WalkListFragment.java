@@ -55,7 +55,6 @@ public class WalkListFragment extends ListFragment {
     @TargetApi(11)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-//        View v = super.onCreateView(inflater, parent, savedInstanceState);
     	View v = inflater.inflate(R.layout.fragment_walk_list, parent, false);
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {   
