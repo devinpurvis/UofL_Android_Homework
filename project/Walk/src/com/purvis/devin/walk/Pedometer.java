@@ -3,6 +3,7 @@ package com.purvis.devin.walk;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Build;
@@ -50,6 +51,7 @@ public class Pedometer extends Activity {
     }    
     
     public static class StepNotifier extends TextView implements StepListener {
+    	
     	private Activity mActivity;
     	public int mCounter = 0;
     	
@@ -57,6 +59,7 @@ public class Pedometer extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_walk, parent, false);
+			
 			return v;	
     	}
     	
@@ -96,7 +99,7 @@ public class Pedometer extends Activity {
 				Bundle savedInstanceState);
     }
     
-    private class StepDetector implements SensorListener
+    public class StepDetector implements SensorListener
     {
         private float mLastValues[] = new float[6];
         private float mScale[] = new float[2];
@@ -112,7 +115,7 @@ public class Pedometer extends Activity {
     	public StepDetector(StepListener stepListener) {
     		mStepListener = stepListener;
     		
-    		int h = 480; // TODO: remove this constant
+    		int h = 480; 
             mYOffset = h * 0.5f;
             mScale[0] = - (h * 0.5f * (1.0f / (SensorManager.STANDARD_GRAVITY * 2)));
             mScale[1] = - (h * 0.5f * (1.0f / (SensorManager.MAGNETIC_FIELD_EARTH_MAX)));

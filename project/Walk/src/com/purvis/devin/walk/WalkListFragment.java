@@ -135,11 +135,6 @@ public class WalkListFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_walk:
-//                Walk walk = new Walk();
-//                WalkSetup.get(getActivity()).addWalk(walk);
-//                Intent i = new Intent(getActivity(), WalkActivity.class);
-//                i.putExtra(WalkFragment.EXTRA_WALK_ID, walk.getId());
-//                startActivityForResult(i, 0);
             	showCreateWalk();
                 return true;
             default:
@@ -190,13 +185,13 @@ public class WalkListFragment extends ListFragment {
     	
     	@Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // if we weren't given a view, inflate one
+            // if not given a view, inflate one
             if (null == convertView) {
                 convertView = getActivity().getLayoutInflater()
                     .inflate(R.layout.list_item_walk, null);
             }
 
-            // configure the view for this Crime
+            // configure the view for this Walk
             Walk w = getItem(position);
 
             TextView titleTextView =

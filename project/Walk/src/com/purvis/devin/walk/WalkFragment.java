@@ -107,11 +107,9 @@ public class WalkFragment extends Fragment {
 			//wire up EditText to respond to user input
 			mStepsTaken = (EditText)v.findViewById(R.id.steps_taken);
     		mStepsTaken.setText(mWalk.getSteps());
-//    		mStepsTaken.setText(mPedometer.getSteps());
 			mStepsTaken.addTextChangedListener(new TextWatcher() {
 				public void onTextChanged(CharSequence c, int start, int before, int count) {
 					mWalk.setSteps(c.toString());
-//					mPedometer.setSteps(c.toString());
 				}
 				
 				public void beforeTextChanged(CharSequence c, int start, int count, int after) {
