@@ -7,11 +7,9 @@ import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -20,7 +18,6 @@ public class Pedometer extends Activity {
 	private SensorManager mSensorManager;
 	private StepDetector mStepDetector = null;
     private StepNotifier mStepNotifier = null;
-    private EditText mStepsTaken;
     public static int mStepsPush;
     
     /** Called when the activity is first created. */
@@ -49,70 +46,45 @@ public class Pedometer extends Activity {
     @Override
     protected void onStop() {
         mSensorManager.unregisterListener(mStepDetector);
-       
         super.onStop();
-    }
-    
-    @Override
-    protected void onDestroy() {
-    	
-    	super.onDestroy();
-    	
-    }
-    
-    
+    }    
     
     public static class StepNotifier extends TextView implements StepListener {
-    	
     	private Activity mActivity;
-    	
     	public int mCounter = 0;
     	
-   
-
-		public TextView mStepCount;
+    	@TargetApi(11)
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.fragment_walk, parent, false);
+			return v;	
+    	}
     	
-    	public TextView getStepCount() {
+		public TextView mStepCount;    	
+    	
+		public TextView getStepCount() {
 			return mStepCount;
 		}
 
 		public void setStepCount(TextView stepCount) {
 			mStepCount = stepCount;
 		}
-
-		private long[] mLastStepDeltas = {-1, -1, -1, -1};
-    	private int mLastStepDeltasIndex = 0;
-    	private long mSpeed = -1;
-    	private TextView mSpeedValue;
-    	
-    	@TargetApi(11)
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-			View v = inflater.inflate(R.layout.fragment_walk, parent, false);
-			return v;
-			
-			
-    	}
     	
     	public StepNotifier(Context context) {
     		super(context);
     		mActivity = (Activity)context;
-    		
             mStepCount = (TextView) mActivity.findViewById(R.id.step_count);
             
-            
+    	}
+    	
+    	private void display() {
+    		mStepCount.setText("" + mCounter);	
     	}
     	
     	public void onStep() {
     		// Add step
     		mCounter ++;
-    		
     		display();
-    	}
-    	
-    	private void display() {
-    		mStepCount.setText("" + mCounter);
-    		
     	}
     }
 
@@ -126,14 +98,14 @@ public class Pedometer extends Activity {
     
     private class StepDetector implements SensorListener
     {
-        private float   mLastValues[] = new float[6];
-        private float   mScale[] = new float[2];
-        private float   mYOffset;
+        private float mLastValues[] = new float[6];
+        private float mScale[] = new float[2];
+        private float mYOffset;
 
-        private float   mLastDirections[] = new float[6];
-        private float   mLastExtremes[][] = { new float[6], new float[6] };
-        private float   mLastDiff[] = new float[6];
-        private int     mLastMatch = -1;
+        private float mLastDirections[] = new float[6];
+        private float mLastExtremes[][] = { new float[6], new float[6] };
+        private float mLastDiff[] = new float[6];
+        private int mLastMatch = -1;
         
         private StepListener mStepListener = null;
     	
@@ -153,7 +125,7 @@ public class Pedometer extends Activity {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	            getActionBar().setDisplayHomeAsUpEnabled(true);
 	        }   
-			return parent;
+			return v;
 			
 		}
     	

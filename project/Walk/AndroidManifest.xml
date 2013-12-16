@@ -27,6 +27,7 @@
         </activity>
         <activity
             android:name="com.purvis.devin.walk.Pedometer"
+            android:configChanges="orientation|keyboardHidden" 
             android:label="@string/app_name" >
         </activity>
         <activity

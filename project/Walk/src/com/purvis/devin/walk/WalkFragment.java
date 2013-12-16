@@ -33,7 +33,7 @@ public class WalkFragment extends Fragment {
 	private Button mPedometerButton;
 	private EditText mDetailsField;
 	private EditText mStepsTaken;
-	private Pedometer mSteps;
+	private Pedometer mPedometer;
 	
 	public static WalkFragment newInstance(UUID walkId) {
         Bundle args = new Bundle();
@@ -106,11 +106,12 @@ public class WalkFragment extends Fragment {
 			
 			//wire up EditText to respond to user input
 			mStepsTaken = (EditText)v.findViewById(R.id.steps_taken);
-//    		mStepsTaken.setText(mWalk.getSteps());
-			mStepsTaken.setText(Integer.toString(Pedometer.mStepsPush));
+    		mStepsTaken.setText(mWalk.getSteps());
+//    		mStepsTaken.setText(mPedometer.getSteps());
 			mStepsTaken.addTextChangedListener(new TextWatcher() {
 				public void onTextChanged(CharSequence c, int start, int before, int count) {
 					mWalk.setSteps(c.toString());
+//					mPedometer.setSteps(c.toString());
 				}
 				
 				public void beforeTextChanged(CharSequence c, int start, int count, int after) {
@@ -135,7 +136,6 @@ public class WalkFragment extends Fragment {
 	        });
 	        
 	        mPedometerButton = (Button)v.findViewById(R.id.pedometer_button);
-//	        mPedometerButton.setText(mWalk.getTitle());
 	        mPedometerButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
