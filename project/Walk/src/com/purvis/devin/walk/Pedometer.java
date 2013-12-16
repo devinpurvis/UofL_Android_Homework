@@ -1,5 +1,9 @@
 package com.purvis.devin.walk;
 
+//The code in this section was based on code from https://github.com/bagilevi/android-pedometer
+//The owner states that others are free to do anything with the source code.
+//I have made changes to fit my needs for this app
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -28,15 +32,19 @@ public class Pedometer extends Activity {
         
         setContentView(R.layout.fragment_pedometer);
         
+        //getting reference to the sensor service
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mStepNotifier = new StepNotifier(this);
         mStepDetector = new StepDetector(mStepNotifier);
           
     }
    
+    
+    
     @Override
     protected void onResume() {
         super.onResume();
+        //mStepDector being registered to one of the senseors at the fastest possible rate
         mSensorManager.registerListener(mStepDetector, 
                 SensorManager.SENSOR_ACCELEROMETER | 
                 SensorManager.SENSOR_MAGNETIC_FIELD | 
@@ -46,6 +54,7 @@ public class Pedometer extends Activity {
     
     @Override
     protected void onStop() {
+    	//unregistering the sensor data
         mSensorManager.unregisterListener(mStepDetector);
         super.onStop();
     }    
@@ -125,13 +134,13 @@ public class Pedometer extends Activity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_pedometer, parent, false);
 			
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	            getActionBar().setDisplayHomeAsUpEnabled(true);
-	        }   
+			  
 			return v;
 			
 		}
     	
+		// aggregates the sensor values, find the maximum and minimum, and if the difference is
+		// bigger than a value then count it as a step
         @Override
     	public void onSensorChanged(int sensor, float[] values) {
             synchronized (this) {
